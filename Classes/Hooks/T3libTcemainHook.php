@@ -2,7 +2,9 @@
 
 namespace KayStrobach\Dyncss\Hooks;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
-use TYPO3\CMS\Core\Utility\GeneralUtuse KayStrobach\Dyncss\Utility\Config;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use KayStrobach\Dyncss\Utility\Config;
+
 /**
  * @todo missing docblock
  */
