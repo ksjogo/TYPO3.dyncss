@@ -2,15 +2,14 @@
 
 namespace KayStrobach\Dyncss\Hooks;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-
+use TYPO3\CMS\Core\Utility\GeneralUtuse KayStrobach\Dyncss\Utility\Config;
 /**
  * @todo missing docblock
  */
 class T3libTcemainHook {
 
 	/**
-	 * Deletes DynCss folders inside typo3temp/
+     * Deletes DynCss cache folders
 	 *
 	 * @param array $params
 	 * @param \TYPO3\CMS\Core\DataHandling\DataHandler $pObj
@@ -20,18 +19,13 @@ class T3libTcemainHook {
 			return;
 		}
 		switch($params['cacheCmd']) {
-			case 'dyncss':
-				GeneralUtility::rmdir(
-					PATH_site . 'typo3temp/Cache/Data/DynCss',
-					TRUE
-				);
-
-				GeneralUtility::rmdir(
-					PATH_site . 'typo3temp/DynCss',
-					TRUE
-				);
-				break;
-			default:
+        case 'dyncss':
+            GeneralUtility::rmdir(
+                Config::$cachePath,
+                TRUE
+            );
+            break;
+        default:
 
 		}
 	}
