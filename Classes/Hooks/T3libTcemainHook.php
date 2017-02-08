@@ -4,6 +4,7 @@ namespace KayStrobach\Dyncss\Hooks;
 
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use KayStrobach\Dyncss\Utility\Config;
 
 /**
  * @todo missing docblock
@@ -24,17 +25,11 @@ class T3libTcemainHook
         switch ($params['cacheCmd']) {
             case 'dyncss':
                 GeneralUtility::rmdir(
-                    PATH_site.'typo3temp/Cache/Data/DynCss',
-                    true
-                );
-
-                GeneralUtility::rmdir(
-                    PATH_site.'typo3temp/DynCss',
-                    true
+                    Config::$cachePath,
+                    TRUE
                 );
                 break;
             default:
-
         }
     }
 }

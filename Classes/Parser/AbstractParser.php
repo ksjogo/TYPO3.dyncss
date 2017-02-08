@@ -5,6 +5,7 @@ namespace KayStrobach\Dyncss\Parser;
 use KayStrobach\Dyncss\Utilities\ApplicationContext;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\ArrayUtility;
+use KayStrobach\Dyncss\Utilities\Config;
 
 /**
  * @todo fix type hinting in @param comments
@@ -20,11 +21,6 @@ abstract class AbstractParser implements ParserInterface
      * @var null|object
      */
     protected $cssParserObject = null;
-
-    /**
-     * @var string
-     */
-    protected $cachePath = 'typo3temp/DynCss/';
 
     /**
      * @var string
@@ -264,7 +260,7 @@ abstract class AbstractParser implements ParserInterface
             return $inputFilename;
         }
         if ($outputFilename === null) {
-            $outputFilename = PATH_site.$this->cachePath.basename($inputFilename);
+            $outputFilename = Config::$cachePath . basename($inputFilename);
         }
         $outputFilenamePathInfo = pathinfo($outputFilename);
         $noExtensionFilename = $outputFilename.'-'.hash('crc32b', $inputFilename).'-'.hash('crc32b', serialize($this->overrides)).'-'.hash('crc32b', filemtime($inputFilename));
@@ -310,9 +306,9 @@ abstract class AbstractParser implements ParserInterface
      */
     public function prepareEnvironment($fname)
     {
-        GeneralUtility::mkdir_deep(PATH_site.'typo3temp/', 'DynCss/');
-        if (!is_dir(PATH_site.$this->cachePath)) {
-            throw new \Exception('Can´t create cache directory PATH_site/'.$this->cachePath);
+        GeneralUtility::mkdir_deep(Config::$cachePath);
+        if (!is_dir(Config::$cachePath)) {
+            throw new \Exception('Can´t create cache directory ' . Config::$cachePath);
         }
         if (!is_file($fname)) {
             return false;
